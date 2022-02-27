@@ -2,7 +2,7 @@ package project;
 import java.awt.Desktop;
 import java.io.*;
 
-public class AccountantSection {
+public class AccountantDaoImpl implements AccountantDao {
 	
 public String addAccountant(Accountant accountant)  {
 		
@@ -31,7 +31,7 @@ public String addAccountant(Accountant accountant)  {
 			
 		}
 		
-	public void viewAccountant() throws IOException {
+	public void viewAccountant() {
 
 		System.out.println("You are viewing \"View Accountant\" page" + "\n");
 		try {
@@ -51,19 +51,27 @@ public String addAccountant(Accountant accountant)  {
 		} 
 	}
 	
-    public boolean accountantLogin(String name, String password) throws IOException {
+    public boolean accountantLogin(String name, String password) {
 		
 		String str;
 		boolean f = false;
-		FileReader file = new FileReader("AccountantDetails.txt");
-		BufferedReader br = new BufferedReader(file);
-		while((str = br.readLine()) != null ) {
-			
-			if((str.indexOf(name) != -1) && (str.indexOf(password) != -1)) {
-				f = true;
-			    }
-			}
-		br.close();
+		FileReader file;
+		try {
+			file = new FileReader("AccountantDetails.txt");
+		    BufferedReader br = new BufferedReader(file);
+			while((str = br.readLine()) != null ) {
+				
+				if((str.indexOf(name) != -1) && (str.indexOf(password) != -1)) {
+					f = true;
+				    }
+				}
+			br.close();
+		}
+	    catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 			if(f) {
 				return true;
 			}
