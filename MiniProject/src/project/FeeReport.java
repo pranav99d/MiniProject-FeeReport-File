@@ -50,19 +50,19 @@ public class FeeReport {
 			switch(b) {
 			case 1:
 				System.out.println("\nYou are viewing \"Add Accountant\" page" + "\n");
-				
+				Accountant accountant = new Accountant();
 				System.out.println("Enter Accountant ID: ");
-				int ID = sc.nextInt();
+				accountant.setId(sc.nextInt());
 				System.out.println("Enter Name: ");
-				String Name = sc.next();
+				accountant.setName(sc.next());
 				System.out.println("Enter Password: ");
-				String Password = sc.next();
+				accountant.setPassword(sc.next());
 				System.out.println("Enter Email: ");
-				String Email = sc.next();
+				accountant.setEmail(sc.next());
 				System.out.println("Enter Contact No.: ");
-				String Contact = sc.next();
+				accountant.setContact(sc.next());
 				
-				Accountant accountant = new Accountant(ID, Name, Password, Email, Contact);
+				//Accountant accountant = new Accountant(id, name1, password1, email, contact);
 				System.out.println("\nType 1 to Add Accountant in File System OR Type 2 to Add Accountant in Database");
 				int i = sc.nextInt();
 				if(i == 1)
@@ -103,18 +103,18 @@ public class FeeReport {
 		System.out.println("\nYou are viewing \"Accountant login\" page" + "\n");
 		
 		System.out.println("Enter Name: ");
-		String N = sc.next();
+		String n = sc.next();
 		
 		System.out.println("Enter Password: ");
-		String P = sc.next(); 
+		String p = sc.next(); 
 		
 		boolean accLogin = false;
 		System.out.println("\nType 1 to Login Accountant using File System OR Type 2 to Login Accountant using Database");
 		int i3 = sc.nextInt();
 		if(i3 == 1)
-		    accLogin = acc_log.accountantLogin(N, P);
+		    accLogin = acc_log.accountantLogin(n, p);
 		else if(i3 == 2)
-			accLogin = acc_log1.accountantLogin(N, P);
+			accLogin = acc_log1.accountantLogin(n, p);
 		else
 			System.out.println("\nInvaild Key!");
 		
@@ -134,31 +134,33 @@ public class FeeReport {
 			case 1:
 				System.out.println("\nYou are viewing \"Add Student\" page" + "\n");
 				
+				Student student = new Student();
 				System.out.println("Enter RollNo: ");
-				String rollno = sc.next();
+				student.setRollNo(sc.next());
 				System.out.println("Enter Name: ");
-				String name = sc.next();
+				student.setName(sc.next());
 				System.out.println("Enter Email: ");
-				String email = sc.next();
+				student.setEmail(sc.next());
 				System.out.println("Enter Course: ");
-				String course = sc.next();
+				student.setCourse(sc.next());
 				System.out.println("Enter Fee: ");
-				int fee = sc.nextInt();
+				student.setFee(sc.nextInt());
 				System.out.println("Enter Fees Paid: ");
-				int paid = sc.nextInt();
-				int due = fee - paid;
+				student.setPaid(sc.nextInt());
+				System.out.println("Enter Due Fees: ");
+				student.setDue(sc.nextInt());
 				System.out.println("Enter Address: ");
-				String address = sc.next();
+				student.setAddress(sc.next());
 				System.out.println("Enter City: ");
-				String city = sc.next();
+				student.setCity(sc.next());
 				System.out.println("Enter State: ");
-				String state = sc.next();
+				student.setState(sc.next());
 				System.out.println("Enter Country: ");
-				String country = sc.next();
+				student.setCountry(sc.next());
 				System.out.println("Enter Contact No.: ");
-				String contact = sc.next();
+				student.setContact(sc.next());
 				
-				Student student = new Student(rollno, name, email, course, fee, paid, due, address, city, state, country, contact);
+				//Student student = new Student(rollno, name, email, course, fee, paid, due, address, city, state, country, contact);
 				
 				System.out.println("Type 1 to add student in File System OR Type 2 to add student in Database.");
 				int j = sc.nextInt();
@@ -183,43 +185,46 @@ public class FeeReport {
 				break;
 			case 3:
 				System.out.println("\nYou are viewing \"Edit Student\" page\n");
-				
+				Student student1 = new Student();
 				System.out.println("Enter the roll number to Update: ");
-				String rollNo = sc.next();
+				student1.setRollNo(sc.next());
 				System.out.println("Type 1 to Edit student in File System OR Type 2 to Edit student in Database.");
 				int j3 = sc.nextInt();
 				if(j3 == 1) {
-				    std.loadRecord(rollNo);
-				    std.deleteRecord(rollNo);
+				    std.loadRecord(student1.getRollNo());
+				    std.deleteRecord(student1.getRollNo());
 				}
 				else if(j3 == 2) {
-					std1.loadRecord(rollNo);
+					std1.loadRecord(student1.getRollNo());
 				}
 				else
 					System.out.println("\nInvalid Key");
-				System.out.println("Enter Name: ");
-				String name1 = sc.next();
-				System.out.println("Enter Email: ");
-				String email1 = sc.next();
-				System.out.println("Enter Course: ");
-				String course1 = sc.next();
-				System.out.println("Enter Fee: ");
-				int fee1 = sc.nextInt();
-				System.out.println("Enter Fees Paid: ");
-				int paid1 = sc.nextInt();
-				int due1 = fee1 - paid1;
-				System.out.println("Enter Address: ");
-				String address1 = sc.next();
-				System.out.println("Enter City: ");
-				String city1 = sc.next();
-				System.out.println("Enter State: ");
-				String state1 = sc.next();
-				System.out.println("Enter Country: ");
-				String country1 = sc.next();
-				System.out.println("Enter Contact No.: ");
-				String contact1 = sc.next();
 				
-				Student student1 = new Student(rollNo, name1, email1, course1, fee1, paid1, due1, address1, city1, state1, country1, contact1);
+				
+				System.out.println("Enter Name: ");
+				student1.setName(sc.next());
+				System.out.println("Enter Email: ");
+				student1.setEmail(sc.next());
+				System.out.println("Enter Course: ");
+				student1.setCourse(sc.next());
+				System.out.println("Enter Fee: ");
+				student1.setFee(sc.nextInt());
+				System.out.println("Enter Fees Paid: ");
+				student1.setPaid(sc.nextInt());
+				System.out.println("Enter Due Fees: ");
+				student1.setDue(sc.nextInt());
+				System.out.println("Enter Address: ");
+				student1.setAddress(sc.next());
+				System.out.println("Enter City: ");
+				student1.setCity(sc.next());
+				System.out.println("Enter State: ");
+				student1.setState(sc.next());
+				System.out.println("Enter Country: ");
+			    student1.setCountry(sc.next());
+				System.out.println("Enter Contact No.: ");
+			    student1.setContact(sc.next());
+				
+				//Student student1 = new Student(rollNo, name1, email1, course1, fee1, paid1, due1, address1, city1, state1, country1, contact1);
 				if(j3 == 1)
 				    std.editStudent(student1);
 				else if(j3 == 2)

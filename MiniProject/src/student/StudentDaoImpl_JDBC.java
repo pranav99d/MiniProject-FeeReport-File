@@ -1,18 +1,14 @@
 package student;
 import java.sql.*;
+import connectionProvider.*;
 
 public class StudentDaoImpl_JDBC implements StudentDao{
-	
-	String dbURL = "jdbc:mysql://localhost/fee_report";
-	String username = "root";
-	String password = "Pranav@123";
-
+	Connection conn = null;
 	@Override
 	public String addStudent(Student student) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
 			
+			conn = ConnectionProvider.getConn();
 			PreparedStatement psmt = conn.prepareStatement("insert into student(roll_no, Name, Email, Course, Total_Fees,"
 					+ " Fees_Paid, Due_Fees, Address, City, State, Country, Contact) values(?,?,?,?,?,?,?,?,?,?,?,?)");
 			
@@ -34,8 +30,6 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 			System.out.println(line);
 			
 			conn.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,8 +40,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 	@Override
 	public void viewStudent() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			Statement stmt = conn.createStatement();
 			String sql = "Select * from student";
@@ -63,9 +56,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 				System.out.println("\n");
 			}
 			conn.close();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
@@ -74,8 +65,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 	@Override
 	public String editStudent(Student student1) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "update student set Name = ?, Email = ?, Course = ?, Total_Fees = ?, Fees_Paid = ?, Due_Fees = ?,"
 					+ "Address = ?, City = ?, State = ?, Country = ?, Contact = ? where roll_no = ?";
@@ -99,9 +89,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 			
 			System.out.println("\nStudent with Roll no. " + student1.getRollNo() + " Updated Sucessfully! " );
 			conn.close();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		String line = "\nRecords Updated Sucessfully!";
@@ -111,8 +99,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 	@Override
 	public String loadRecord(String rollno) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "select * from student where roll_no = '"+ rollno+"'";
 			
@@ -129,9 +116,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 				System.out.println("\n");
 			}
 			conn.close();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		String line = "\nStudent with "+ rollno + " have above record.";
@@ -141,8 +126,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 	@Override
 	public void dueFees() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			Statement stmt = conn.createStatement();
 			String sql = "Select * from student where Due_Fees != 0";
@@ -158,9 +142,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 				System.out.println("\n");
 			}
 			conn.close();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
@@ -169,8 +151,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 	@Override
 	public String deleteRecord(String rollno) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "Delete from student where roll_no = '"+ rollno+"'";
 			Statement stmt = conn.createStatement();
@@ -178,9 +159,7 @@ public class StudentDaoImpl_JDBC implements StudentDao{
 			stmt.executeUpdate(sql);
 			
 			conn.close();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		String line = "\nRecord of student with roll no "+ rollno + " deleted sucessfully!";

@@ -5,14 +5,15 @@ public class Accountant {
 	private int id;
 	private String name,password,email,contact;
 	
-	public Accountant(int id, String name, String password, String email, String contact) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.email = email;
-		this.contact = contact;
-	}
+	public Accountant() {}
+/*	public Accountant(int id, String name, String password, String email, String contact) {
+//		super();
+//		this.id = id;
+//		this.name = name;
+//		this.password = password;
+//		this.email = email;
+//		this.contact = contact;
+	}*/
 	public int getId() {
 		return id;
 	}

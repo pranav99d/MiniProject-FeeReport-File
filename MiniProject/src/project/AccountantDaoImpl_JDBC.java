@@ -1,17 +1,13 @@
 package project;
-
 import java.sql.*;
-public class AccountantDaoImpl_JDBC implements AccountantDao {
+import connectionProvider.*;
 
-	String dbURL = "jdbc:mysql://localhost/fee_report";
-	String username = "root";
-	String password = "Pranav@123";
-	
+public class AccountantDaoImpl_JDBC implements AccountantDao {
+	Connection conn = null;
 	@Override
 	public String addAccountant(Accountant accountant) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "insert into accountant(Accountant_id, Name, Password, Email, Contact) values(?,?,?,?,?)";
 			
@@ -26,8 +22,6 @@ public class AccountantDaoImpl_JDBC implements AccountantDao {
 			pstmt.executeUpdate();
 			System.out.println("Accontant with name "+ accountant.getName()+ " added Sucessfully!");
 			conn.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -38,8 +32,7 @@ public class AccountantDaoImpl_JDBC implements AccountantDao {
 	@Override
 	public void viewAccountant() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "Select * from accountant";
 			Statement stmt = conn.createStatement();
@@ -52,8 +45,6 @@ public class AccountantDaoImpl_JDBC implements AccountantDao {
 			}
 			
 			conn.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,8 +55,7 @@ public class AccountantDaoImpl_JDBC implements AccountantDao {
 	public boolean accountantLogin(String name, String Password) {
 		boolean f = false;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			conn = ConnectionProvider.getConn();
 			
 			String sql = "Select Name, Password from accountant";
 			
@@ -76,8 +66,6 @@ public class AccountantDaoImpl_JDBC implements AccountantDao {
 				f = true;
 			}
 			conn.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
